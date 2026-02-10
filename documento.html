@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="box" id="conteudo"></div>
 
+<script>
+const codigo = new URLSearchParams(window.location.search).get("codigo");
+fetch("/documento/"+codigo)
+.then(r=>r.json())
+.then(d=>{
+document.getElementById("conteudo").innerHTML = `
+<h2>Documento Registrado</h2>
+<p><b>Descrição:</b> ${d.descricao}</p>
+<p><b>Data:</b> ${d.data_registro}</p>
+<p><b>Código:</b> ${d.codigo_publico}</p>
+`;
+});
+</script>
+</body>
+</html>
