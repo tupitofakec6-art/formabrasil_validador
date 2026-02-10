@@ -1,1 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Verificar Documento</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="box">
+    <h1>Validação de Documento</h1>
+    <input id="codigo" placeholder="Digite o código">
+    <button onclick="verificar()">Verificar</button>
+    <div id="msg"></div>
+  </div>
 
+<script>
+function verificar(){
+  fetch("/verificar",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ codigo: document.getElementById("codigo").value })
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.valido){
+      window.location = "/documento.html?codigo="+document.getElementById("codigo").value;
+    }else{
+      document.getElementById("msg").textContent = "Código inválido";
+    }
+  });
+}
+</script>
+</body>
+</html>
